@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.serializers import (
+    TokenObtainPairSerializer,
+    TokenBlacklistSerializer,
+)
 from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed
 
@@ -38,3 +41,14 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
             )
         refresh = self.get_token(user)
         return {"refresh": str(refresh), "access": str(refresh.access_token)}
+
+
+class LogoutSerializer(TokenBlacklistSerializer):
+    pass
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "email"]
+        read_only_fields = ["id", "email"]

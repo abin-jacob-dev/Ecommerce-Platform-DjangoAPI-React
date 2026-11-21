@@ -1,5 +1,9 @@
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import (
+    IsAuthenticated,
+    AllowAny,
+    IsAuthenticatedOrReadOnly,
+)
 from .models import Product
 from .serializers import ProductSerializer
 from .permissions import IsSellerOrReadOnly
@@ -11,7 +15,11 @@ from .permissions import IsSellerOrReadOnly
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [AllowAny()]
+        return [IsAuthenticated()]
 
     def perform_create(self, serializer):
         serializer.save(seller=self.request.user)
@@ -21,4 +29,4 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
 class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated, IsSellerOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsSellerOrReadOnly]
