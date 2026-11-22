@@ -46,7 +46,8 @@ const initialState = {
     isAuthenticated: false,
     loading: false,
     error: null,
-    registeredUser: null
+    registeredUser: null,
+    authInitialized: false
 }
 
 const authSlice = createSlice({
@@ -68,6 +69,9 @@ const authSlice = createSlice({
         },
         setUser: (state, action) => {
             state.user = action.payload
+        },
+        finishAuthInitialization: (state) => {
+            state.authInitialized = true
         }
     },
     extraReducers: (builder) => {
@@ -115,10 +119,12 @@ const authSlice = createSlice({
                 state.loading = false
                 state.user = action.payload
                 state.isAuthenticated = true
+                state.authInitialized = true
             })
             .addCase(fetchProfile.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.payload
+                state.authInitialized = true
             })
             // Logout
             .addCase(logoutUser.pending, (state) => {
@@ -143,6 +149,6 @@ const authSlice = createSlice({
 })
 
 
-export const { setCredentials, logout, setUser } = authSlice.actions
+export const { setCredentials, logout, setUser, finishAuthInitialization } = authSlice.actions
 
 export default authSlice.reducer

@@ -7,14 +7,20 @@ import CreateProduct from "./pages/CreateProduct";
 import EditProduct from "./pages/EditProduct";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProfile } from "./features/auth/authSlice";
+import { fetchProfile, finishAuthInitialization } from "./features/auth/authSlice";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+
 function App() {
   const { accessToken } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (accessToken) {
+
       dispatch(fetchProfile(accessToken))
+    } else {
+      dispatch(finishAuthInitialization())
     }
   }, [accessToken])
 
@@ -26,8 +32,10 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="products/:id" element={<ProductDetails />} />
-        <Route path="products/create" element={<CreateProduct />} />
-        <Route path="products/:id/edit" element={<EditProduct />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="products/create" element={<CreateProduct />} />
+          <Route path="products/:id/edit" element={<EditProduct />} />
+        </Route>
       </Routes>
     </BrowserRouter>
 
