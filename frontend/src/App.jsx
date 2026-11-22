@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile, finishAuthInitialization } from "./features/auth/authSlice";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MyProducts from "./pages/MyProducts";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 
 function App() {
@@ -23,11 +25,12 @@ function App() {
     } else {
       dispatch(finishAuthInitialization())
     }
-  }, [accessToken])
+  }, [accessToken, dispatch])
 
   return (
 
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
@@ -39,6 +42,7 @@ function App() {
           <Route path="products/:id/edit" element={<EditProduct />} />
         </Route>
       </Routes>
+      <Footer />
     </BrowserRouter>
 
   )
