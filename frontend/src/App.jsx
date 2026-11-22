@@ -5,8 +5,18 @@ import Register from "./pages/Register";
 import ProductDetails from "./pages/ProductDetails";
 import CreateProduct from "./pages/CreateProduct";
 import EditProduct from "./pages/EditProduct";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProfile } from "./features/auth/authSlice";
 function App() {
+  const { accessToken } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
 
+  useEffect(() => {
+    if (accessToken) {
+      dispatch(fetchProfile(accessToken))
+    }
+  }, [accessToken])
 
   return (
 
