@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../features/auth/authSlice";
+import "./Navbar.css";
 
 const Navbar = () => {
     const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const Navbar = () => {
     return (
         <nav>
 
-            <Link to="/">
+            <Link className="brand" to="/">
                 <h2>OLX</h2>
             </Link>
 
@@ -43,7 +44,7 @@ const Navbar = () => {
 
                     <Link to="/products/create">Create Product</Link>
 
-                    <span>{user?.email}</span>
+                    <span className="user-email">{user?.email}</span>
 
                     <button onClick={handleLogout}>
                         Logout

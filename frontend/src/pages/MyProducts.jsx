@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { deleteProduct, fetchProducts } from '../features/products/productSlice';
 import { useNavigate } from 'react-router-dom';
+import "./Home.css";
 
 const CLOUD_NAME = "campeon-ecommerce";
 
@@ -24,29 +25,26 @@ function MyProducts() {
     }, [accessToken, dispatch])
 
     return (
-        <>
-            <div>My Products</div>
-
-            <hr />
-            <h1>Manage Products</h1>
-            {user && products.filter(product => String(product.seller) === String(user.id)).map(product => (
-
-                <div key={product.id}>
-                    {product.image && <img width="150" src={`https://res.cloudinary.com/${CLOUD_NAME}/${product.image}`} alt={product.title} />}
-                    <p>{product.id}. {product.title}</p>
-                    <p>{product.description}</p>
-                    <p>{product.price}</p>
-                    <p>{product.location}</p>
-                    {/* <p>{product.image}</p> */}
-                    <button onClick={() => handleDelete(product.id)}>Delete</button>
-                    <button onClick={() => handleEdit(product.id)}>Edit</button>
-                    {/* <Link to={`/products/${product.id}`}>Buy now</Link> */}
-                    <hr />
-                </div>
-            ))}
-            {loading && <p>Loading Products...</p>}
-            {error && <p>{error}</p>}
-        </>
+        <main>
+            <h1 className="page-title">Manage Products</h1>
+            <div className="products-grid">
+                {user && products.filter(product => String(product.seller) === String(user.id)).map(product => (
+                    <div className="product-card" key={product.id}>
+                        {product.image && <img src={`https://res.cloudinary.com/${CLOUD_NAME}/${product.image}`} alt={product.title} />}
+                        <p>{product.id}. {product.title}</p>
+                        <p>{product.description}</p>
+                        <p className="price">{product.price}</p>
+                        <p>{product.location}</p>
+                        <div className="card-actions">
+                            <button className="btn-danger" onClick={() => handleDelete(product.id)}>Delete</button>
+                            <button onClick={() => handleEdit(product.id)}>Edit</button>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            {loading && <p className="state-message">Loading Products...</p>}
+            {error && <p className="state-message error">{error}</p>}
+        </main>
     )
 }
 export default MyProducts

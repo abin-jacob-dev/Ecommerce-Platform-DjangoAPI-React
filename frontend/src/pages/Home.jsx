@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser } from "../features/auth/authSlice";
 import { fetchProducts } from '../features/products/productSlice';
 import { Link } from "react-router-dom";
+import "./Home.css";
 
 const CLOUD_NAME = "campeon-ecommerce";
 
@@ -11,38 +11,26 @@ function Home() {
     const { products, loading, error } = useSelector((state) => state.products)
     useEffect(() => {
         dispatch(fetchProducts())
+    }, [dispatch])
 
-
-    }, [])
-
-    const { isAuthenticated, user, accessToken, refreshToken } = useSelector((state) => state.auth)
-
-    const handleLogout = () => {
-        dispatch(logoutUser({ accessToken, refreshToken }))
-    }
     return (
-        <>
-            <div>Home</div>
-            {isAuthenticated && <button onClick={handleLogout}>Logout</button>}
-            {isAuthenticated ? <h1>Welcome User</h1> : <h1>Please Login</h1>}
-            <hr />
-            <h1>Products</h1>
-            {products.map(product => (
-
-                <div key={product.id}>
-                    {product.image && <img width="150" src={`https://res.cloudinary.com/${CLOUD_NAME}/${product.image}`} alt={product.title} />}
-                    <p>{product.id}. {product.title}</p>
-                    <p>{product.description}</p>
-                    <p>{product.price}</p>
-                    <p>{product.location}</p>
-                    {/* <p>{product.image}</p> */}
-                    <Link to={`/products/${product.id}`}>Buy now</Link>
-                    <hr />
-                </div>
-            ))}
-            {loading && <p>Loading Products...</p>}
-            {error && <p>{error}</p>}
-        </>
+        <main>
+            <h1 className="page-title">Products</h1>
+            <div className="products-grid">
+                {products.map(product => (
+                    <div className="product-card" key={product.id}>
+                        {product.image && <img src={`https://res.cloudinary.com/${CLOUD_NAME}/${product.image}`} alt={product.title} />}
+                        <p>{product.id}. {product.title}</p>
+                        <p>{product.description}</p>
+                        <p className="price">{product.price}</p>
+                        <p>{product.location}</p>
+                        <Link to={`/products/${product.id}`}>Buy now</Link>
+                    </div>
+                ))}
+            </div>
+            {loading && <p className="state-message">Loading Products...</p>}
+            {error && <p className="state-message error">{error}</p>}
+        </main>
     )
 }
 
