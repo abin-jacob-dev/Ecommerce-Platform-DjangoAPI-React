@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile, finishAuthInitialization } from "./features/auth/authSlice";
 import ProtectedRoute from "./components/ProtectedRoute";
+import MyProducts from "./pages/MyProducts";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route path="register" element={<Register />} />
         <Route path="products/:id" element={<ProductDetails />} />
         <Route element={<ProtectedRoute />}>
+          <Route path="my_products" element={<MyProducts />} />
           <Route path="products/create" element={<CreateProduct />} />
           <Route path="products/:id/edit" element={<EditProduct />} />
         </Route>

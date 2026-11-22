@@ -30,14 +30,13 @@ function Home() {
             {products.map(product => (
 
                 <div key={product.id}>
-                    <Link to={`/products/${product.id}`}>Buy now</Link>
+                    {product.image && <img width="150" src={`https://res.cloudinary.com/${CLOUD_NAME}/${product.image}`} alt={product.title} />}
                     <p>{product.id}. {product.title}</p>
                     <p>{product.description}</p>
                     <p>{product.price}</p>
                     <p>{product.location}</p>
                     {/* <p>{product.image}</p> */}
-
-                    {product.image && <img width="150" src={`https://res.cloudinary.com/${CLOUD_NAME}/${product.image}`} alt={product.title} />}
+                    <Link to={`/products/${product.id}`}>Buy now</Link>
                     <hr />
                 </div>
             ))}

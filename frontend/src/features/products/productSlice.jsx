@@ -64,6 +64,16 @@ export const updateProduct = createAsyncThunk('products/updateProduct', async ({
     }
 })
 
+export const deleteProduct = createAsyncThunk('products/deleteProduct', async ({ id, accessToken }, { rejectWithValue }) => {
+    try {
+
+        await api.delete(`products/${id}/`, { headers: { Authorization: `Bearer ${accessToken}` } })
+        return id
+
+    } catch (error) {
+        return rejectWithValue(error.response?.data?.message || "Product Deletion Failed ")
+    }
+})
 
 const initialState = {
     products: [],
@@ -131,6 +141,20 @@ const productsSlice = createSlice({
                 }
             })
             .addCase(updateProduct.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.payload
+            })
+            // deleteProduct
+            .addCase(deleteProduct.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(deleteProduct.fulfilled, (state, action) => {
+                state.loading = false
+                state.products = state.products.filter(product => product.id !== action.payload)
+
+            })
+            .addCase(deleteProduct.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.payload
             })
