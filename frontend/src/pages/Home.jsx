@@ -6,7 +6,7 @@ function Home() {
     const { isAuthenticated } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
     const handleLogin = () => {
-        dispatch(setCredentials({ user: { "id": 1, "email": "test@demo.com", }, "accessToken": "123", "refreshToken": "121" }))
+        dispatch(setCredentials({ user: { "id": 1, "email": "test@demo.com", 'password': "123" }, "accessToken": "123", "refreshToken": "121" }))
     }
     const handleLogout = () => {
         dispatch(logout())
