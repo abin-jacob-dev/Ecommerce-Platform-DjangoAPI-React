@@ -2,16 +2,20 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 
 import { deleteProduct, fetchProducts } from '../features/products/productSlice';
+import { useNavigate } from 'react-router-dom';
 
 const CLOUD_NAME = "campeon-ecommerce";
 
 function MyProducts() {
-
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const { products, loading, error } = useSelector((state) => state.products)
     const { isAuthenticated, user, accessToken } = useSelector((state) => state.auth)
     const handleDelete = (id) => {
         dispatch(deleteProduct({ id, accessToken }))
+    }
+    const handleEdit = (id) => {
+        navigate(`/products/${id}/edit`)
     }
     useEffect(() => {
         dispatch(fetchProducts())
@@ -35,6 +39,7 @@ function MyProducts() {
                     <p>{product.location}</p>
                     {/* <p>{product.image}</p> */}
                     <button onClick={() => handleDelete(product.id)}>Delete</button>
+                    <button onClick={() => handleEdit(product.id)}>Edit</button>
                     {/* <Link to={`/products/${product.id}`}>Buy now</Link> */}
                     <hr />
                 </div>
