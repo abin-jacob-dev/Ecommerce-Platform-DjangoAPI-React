@@ -10,6 +10,16 @@ export const fetchProducts = createAsyncThunk('fetchProducts', async (_, { rejec
     }
 })
 
+export const fetchProductById = createAsyncThunk('fetchProductById', async (id, { rejectWithValue }) => {
+    try {
+        const response = await api.get(`products/${id}/`)
+        return response.data
+
+    } catch (error) {
+        return rejectWithValue(error.response?.data?.message)
+    }
+})
+
 const initialState = {
     products: [],
     product: null,
@@ -37,6 +47,20 @@ const productsSlice = createSlice({
                 state.loading = false
                 state.error = action.payload
             })
+            // FetchProductById 
+            .addCase(fetchProductById.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchProductById.fulfilled, (state, action) => {
+                state.loading = false
+                state.product = action.payload
+            })
+            .addCase(fetchProductById.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.payload
+            })
+            
 
     }
 })

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../features/auth/authSlice";
 import { fetchProducts } from '../features/products/productSlice';
+import { Link } from "react-router-dom";
 
 const CLOUD_NAME = "campeon-ecommerce";
 
@@ -27,8 +28,9 @@ function Home() {
             <hr />
             <h1>Products</h1>
             {products.map(product => (
-                <div key={product.id}>
 
+                <div key={product.id}>
+                    <Link to={`/products/${product.id}`}>Buy now</Link>
                     <p>{product.id}. {product.title}</p>
                     <p>{product.description}</p>
                     <p>{product.price}</p>
