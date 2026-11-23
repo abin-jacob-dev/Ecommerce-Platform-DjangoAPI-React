@@ -43,6 +43,7 @@ const Navbar = () => {
                     <Link to="/my_products">My Products</Link>
 
                     <Link to="/products/create">Create Product</Link>
+                    <Link to="/cart">Cart</Link>
 
                     <span className="user-email">{user?.email}</span>
 

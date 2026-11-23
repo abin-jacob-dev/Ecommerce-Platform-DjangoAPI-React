@@ -84,107 +84,30 @@ import CreateProduct from "../../pages/CreateProduct"
 // })
 
 const initialState = {
-    products: [],
-    product: null,
-    myProducts: [],
-    loading: false,
-    error: null
+    items: []
 }
-const productsSlice = createSlice({
-    name: 'products',
+const cartSlice = createSlice({
+    name: 'cart',
     initialState,
     reducers: {
+        addToCart: (state, action) => {
+            const existingProduct = state.items.some(
+                item => item.id === action.payload.id
+            );
 
-    },
-    // extraReducers: (builder) => {
-    //     builder
-    //         // fetchProducts
-    //         .addCase(fetchProducts.pending, (state) => {
-    //             state.loading = true
-    //             state.error = null
-    //         })
-    //         .addCase(fetchProducts.fulfilled, (state, action) => {
-    //             state.loading = false
-    //             state.products = action.payload
-    //         })
-    //         .addCase(fetchProducts.rejected, (state, action) => {
-    //             state.loading = false
-    //             state.error = action.payload
-    //         })
-    //         // fetchMyProducts
-    //         .addCase(fetchMyProducts.pending, (state) => {
-    //             state.loading = true
-    //             state.error = null
-    //         })
-    //         .addCase(fetchMyProducts.fulfilled, (state, action) => {
-    //             state.loading = false
-    //             state.myProducts = action.payload
-    //         })
-    //         .addCase(fetchMyProducts.rejected, (state, action) => {
-    //             state.loading = false
-    //             state.error = action.payload
-    //         })
-    //         // FetchProductById 
-    //         .addCase(fetchProductById.pending, (state) => {
-    //             state.loading = true
-    //             state.error = null
-    //         })
-    //         .addCase(fetchProductById.fulfilled, (state, action) => {
-    //             state.loading = false
-    //             state.product = action.payload
-    //         })
-    //         .addCase(fetchProductById.rejected, (state, action) => {
-    //             state.loading = false
-    //             state.error = action.payload
-    //         })
-    //         // CreateProduct
-    //         .addCase(createProduct.pending, (state) => {
-    //             state.loading = true
-    //             state.error = null
-    //         })
-    //         .addCase(createProduct.fulfilled, (state, action) => {
-    //             state.loading = false
-    //             state.products.push(action.payload)
-    //         })
-    //         .addCase(createProduct.rejected, (state, action) => {
-    //             state.loading = false
-    //             state.error = action.payload
-    //         })
-    //         // updateProduct
-    //         .addCase(updateProduct.pending, (state) => {
-    //             state.loading = true
-    //             state.error = null
-    //         })
-    //         .addCase(updateProduct.fulfilled, (state, action) => {
-    //             state.loading = false
-    //             const index = state.products.findIndex(product => product.id === action.payload.id)
-    //             if (index !== -1) {
-    //                 state.products[index] = action.payload
-    //             }
-    //         })
-    //         .addCase(updateProduct.rejected, (state, action) => {
-    //             state.loading = false
-    //             state.error = action.payload
-    //         })
-    //         // deleteProduct
-    //         .addCase(deleteProduct.pending, (state) => {
-    //             state.loading = true
-    //             state.error = null
-    //         })
-    //         .addCase(deleteProduct.fulfilled, (state, action) => {
-    //             state.loading = false
-    //             state.products = state.products.filter(product => product.id !== action.payload)
-
-    //         })
-    //         .addCase(deleteProduct.rejected, (state, action) => {
-    //             state.loading = false
-    //             state.error = action.payload
-    //         })
-
-
-    // }
+            if (!existingProduct) {
+                state.items.push(action.payload);
+            }
+        },
+        removeFromCart: (state, action) => {
+            state.items = state.items.filter(item => item.id !== action.payload)
+        },
+        clearCart: (state, action) => {
+            state.items = []
+        }
+    }
 })
 
-// export const  { } =  productsSlice.actions 
+export const { addToCart, removeFromCart, clearCart } = cartSlice.actions
 
-export default productsSlice.reducer
+export default cartSlice.reducer

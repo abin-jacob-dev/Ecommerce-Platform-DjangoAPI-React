@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { fetchProductById } from '../features/products/productSlice'
+import { addToCart } from '../features/cart/cartSlice'
 import "./ProductDetails.css";
 
 const CLOUD_NAME = "campeon-ecommerce";
@@ -13,7 +14,9 @@ function ProductDetails() {
     useEffect(() => {
         dispatch(fetchProductById(id))
     }, [id, dispatch])
-
+    const handleAddToCart = (product) => {
+        dispatch(addToCart(product))
+    }
     return (
         <main>
             <h1 className="page-title">Product Details</h1>
@@ -25,6 +28,7 @@ function ProductDetails() {
                 <p>{product.description}</p>
                 <p className="detail-price">{product.price}</p>
                 <p className="detail-location">{product.location}</p>
+                <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
             </div>}
         </main>
     )

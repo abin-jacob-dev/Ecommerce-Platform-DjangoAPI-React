@@ -12,6 +12,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import MyProducts from "./pages/MyProducts";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Cart from "./pages/Cart";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <Route path="products/:id" element={<ProductDetails />} />
         <Route element={<ProtectedRoute />}>
           <Route path="my_products" element={<MyProducts />} />
+          <Route path="cart" element={<Cart />} />
           <Route path="products/create" element={<CreateProduct />} />
           <Route path="products/:id/edit" element={<EditProduct />} />
         </Route>
