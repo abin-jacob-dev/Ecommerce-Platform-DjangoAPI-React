@@ -20,7 +20,7 @@ function MyProducts() {
         if (confirmDelete) {
             dispatch(deleteProduct({ id, accessToken }))
         }
-        
+
     }
     const handleEdit = (id) => {
         navigate(`/products/${id}/edit`)
@@ -38,13 +38,13 @@ function MyProducts() {
                 {user && myProducts.map(product => (
                     <div className="product-card" key={product.id}>
                         {product.image && <img src={`https://res.cloudinary.com/${CLOUD_NAME}/${product.image}`} alt={product.title} />}
-                        <p>{product.id}. {product.title}</p>
                         <span className={`sold-badge${product.is_sold ? ' is-sold' : ' is-available'}`}>
                             {product.is_sold ? 'SOLD OUT' : 'AVAILABLE'}
                         </span>
+                        <p>{product.id}. {product.title}</p>
                         <p>{product.description}</p>
-                        <p className="price">{product.price}</p>
-                        <p>{product.location}</p>
+                        <p className="price">Price : {product.price}</p>
+                        <p>Location : {product.location}</p>
                         <div className="card-actions">
                             <button className="btn-danger" onClick={() => handleDelete(product.id)}>Delete</button>
                             <button onClick={() => handleEdit(product.id)}>Edit</button>
