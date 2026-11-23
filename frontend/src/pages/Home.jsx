@@ -13,6 +13,8 @@ function Home() {
         dispatch(fetchProducts())
     }, [dispatch])
 
+    // throw new Error("Test Error Boundary")
+    
     return (
         <main>
             <h1 className="page-title">Products</h1>
@@ -24,7 +26,7 @@ function Home() {
                         <p>{product.description}</p>
                         <p className="price">{product.price}</p>
                         <p>{product.location}</p>
-                        
+
                         <Link to={`/products/${product.id}`}>Buy now</Link>
                     </div>
                 ))}
