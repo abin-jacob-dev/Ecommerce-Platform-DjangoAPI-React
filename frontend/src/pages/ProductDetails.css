@@ -1,35 +1,32 @@
 .product-detail {
-  max-width: 600px;
+  max-width: 500px;
   margin: 1.5rem auto;
   padding: 1.5rem;
-  background: var(--card);
+  background: #fff;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 6px;
 }
 
 .product-detail img {
   width: 100%;
-  height: 300px;
+  height: 250px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: 6px;
   margin-bottom: 1rem;
-  background: var(--bg);
 }
 
 .product-detail .detail-title {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 600;
   margin: 0 0 0.5rem;
 }
 
 .product-detail .detail-price {
-  font-size: 1.2rem;
   font-weight: 600;
   color: var(--primary);
-  margin: 0.5rem 0;
 }
 
 .product-detail .detail-location {
-  color: var(--muted);
+  color: #666;
   font-size: 0.9rem;
 }

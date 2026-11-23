@@ -1,39 +1,26 @@
 nav {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1rem;
   padding: 0.75rem 1.5rem;
   background: var(--primary);
-  color: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 nav a {
   color: #fff;
-  font-weight: 500;
-}
-
-nav a:hover {
   text-decoration: none;
-  opacity: 0.8;
 }
 
 nav .brand h2 {
   margin: 0;
-  letter-spacing: 1px;
 }
 
 nav .user-email {
   margin-left: auto;
   color: #bbdefb;
-  font-size: 0.9rem;
 }
 
 nav button {
   background: #fff;
   color: var(--primary);
-}
-
-nav button:hover {
-  background: #e3f0fc;
 }

@@ -2,14 +2,12 @@ footer {
   background: var(--primary);
   color: #bbdefb;
   text-align: center;
-  padding: 1.5rem;
-  margin-top: 2rem;
+  padding: 1rem;
 }
 
 footer h2 {
   margin: 0 0 0.25rem;
   color: #fff;
-  letter-spacing: 1px;
 }
 
 footer p {

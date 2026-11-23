@@ -13,8 +13,22 @@ from .permissions import IsSellerOrReadOnly
 
 # GET,POST
 class ProductListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Product.objects.all()
+    # queryset = Product.objects.filter(is_sold=False)
     serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        queryset = Product.objects.filter(is_sold=False)
+
+        min_price = self.request.query_params.get("min_price")
+        max_price = self.request.query_params.get("max_price")
+
+        if min_price:
+            queryset = queryset.filter(price__gte=min_price)
+
+        if max_price:
+            queryset = queryset.filter(price__lte=max_price)
+
+        return queryset
 
     def get_permissions(self):
         if self.request.method == "GET":
@@ -23,6 +37,14 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(seller=self.request.user)
+
+
+class MyProductsAPIView(generics.ListAPIView):
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Product.objects.filter(seller=self.request.user)
 
 
 # GET,PUT,PATCH,DELETE

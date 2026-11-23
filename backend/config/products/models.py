@@ -13,6 +13,7 @@ class Product(models.Model):
     location = models.CharField(max_length=150)
     image = CloudinaryField("image", folder="DRF/products", blank=True, null=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name="products")
+    is_sold = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

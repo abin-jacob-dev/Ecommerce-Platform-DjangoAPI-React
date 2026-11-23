@@ -1,39 +1,30 @@
 .page-title {
   text-align: center;
-  margin: 1.5rem 0 1rem;
+  margin: 1.5rem 0;
 }
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1.25rem;
-  max-width: 1100px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
 }
 
 .product-card {
-  background: var(--card);
+  background: #fff;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 6px;
   padding: 1rem;
-  transition: box-shadow 0.15s ease, transform 0.15s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.product-card:hover {
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
 }
 
 .product-card img {
   width: 100%;
-  height: 150px;
+  height: 130px;
   object-fit: cover;
-  border-radius: var(--radius);
-  margin-bottom: 0.75rem;
-  background: var(--bg);
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
 }
 
 .product-card p {
@@ -43,33 +34,21 @@
 .product-card .price {
   font-weight: 600;
   color: var(--primary);
-  font-size: 1.05rem;
 }
 
 .product-card .card-actions {
   display: flex;
   gap: 0.5rem;
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
 }
 
 .product-card .btn-danger {
   background: var(--danger);
 }
 
-.product-card .btn-danger:hover {
-  background: #a93226;
-}
-
-.product-card hr {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 0.75rem 0 0;
-}
-
 .state-message {
   text-align: center;
-  margin-top: 3rem;
-  color: var(--muted);
+  color: #666;
 }
 
 .state-message.error {

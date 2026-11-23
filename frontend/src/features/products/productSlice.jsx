@@ -10,6 +10,14 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async (_
         return rejectWithValue(error.response?.data?.message || "Failed To Fetch the Products")
     }
 })
+export const fetchMyProducts = createAsyncThunk('products/fetchMyProducts', async (accessToken, { rejectWithValue }) => {
+    try {
+        const response = await api.get('my_products/', { headers: { Authorization: `Bearer ${accessToken}` } })
+        return response.data
+    } catch (error) {
+        return rejectWithValue(error.response?.data?.message || "Failed To Fetch the MyProducts")
+    }
+})
 
 export const fetchProductById = createAsyncThunk('products/fetchProductById', async (id, { rejectWithValue }) => {
     try {
@@ -78,6 +86,7 @@ export const deleteProduct = createAsyncThunk('products/deleteProduct', async ({
 const initialState = {
     products: [],
     product: null,
+    myProducts: [],
     loading: false,
     error: null
 }
@@ -99,6 +108,19 @@ const productsSlice = createSlice({
                 state.products = action.payload
             })
             .addCase(fetchProducts.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.payload
+            })
+            // fetchMyProducts
+            .addCase(fetchMyProducts.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchMyProducts.fulfilled, (state, action) => {
+                state.loading = false
+                state.myProducts = action.payload
+            })
+            .addCase(fetchMyProducts.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.payload
             })
