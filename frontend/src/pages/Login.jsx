@@ -36,6 +36,7 @@ function Login() {
                 <h2 className="form-title">Login</h2>
                 <form onSubmit={handleLogin}>
                     <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" placeholder="Email" required />
+                    
                     <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" placeholder="Password" required />
                     <button>Login</button>
                     {loading && <p className="form-hint">Loading...</p>}
