@@ -26,7 +26,7 @@ function CreateProduct() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     {loading && <p className="form-hint">Loading...</p>}
                     {error && <p className="form-error">{error}</p>}
-                    <input  {...register('title', { required: { value: true, message: "Title is required" } })} type="text" placeholder="Title"  />
+                    <input  {...register('title', { required: { value: true, message: "Title is required" }, minLength: { value: 3, message: "Minimum Length is 3 characters" } })} type="text" placeholder="Title" />
                     {errors.title && <p>{errors.title.message}</p>}
                     <input {...register('description', {
                         required: {
@@ -39,9 +39,9 @@ function CreateProduct() {
                         }
                     })} type="text" placeholder="Description" />
                     {errors.description && <p>{errors.description.message}</p>}
-                    <input {...register('price', { required: "Price is required", min: { value: 1, message: "Price must be greater than zero" } })} type="number" placeholder="Price"  />
+                    <input {...register('price', { required: "Price is required", min: { value: 1, message: "Price must be greater than zero" } })} type="number" placeholder="Price" />
                     {errors.price && <p>{errors.price.message}</p>}
-                    <input {...register('location', { required: "Location is required" })} type="text" placeholder="Location"  />
+                    <input {...register('location', { required: "Location is required" })} type="text" placeholder="Location" />
                     {errors.location && <p>{errors.location.message}</p>}
                     <input {...register('image')} type="file" />
                     <button disabled={loading}>Submit</button>

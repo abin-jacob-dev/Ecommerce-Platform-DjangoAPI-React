@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { fetchProductById, updateProduct } from '../features/products/productSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import "./EditProduct.css";
+import { useForm } from 'react-hook-form';
 
 function EditProduct() {
+    const { formState, register, handleSubmit, reset } = useForm()
+    const { errors } = formState
     const { id } = useParams()
     const { product, loading, error } = useSelector((state) => state.products)
     const { accessToken } = useSelector((state) => state.auth)
@@ -14,26 +17,28 @@ function EditProduct() {
     }, [dispatch, id])
     useEffect(() => {
         if (product && String(product.id) === id) {
-            setTitle(product.title || "")
-            setDescription(product.description || "")
-            setPrice(product.price || "")
-            setLocation(product.location || "")
+
+            reset({
+                title: product.title || "",
+                description: product.description || "",
+                price: product.price || "",
+                location: product.location || ""
+            })
         }
 
 
-    }, [product, id])
+    }, [product, id, reset])
 
-
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
-    const [price, setPrice] = useState("")
-    const [location, setLocation] = useState("")
-    const [image, setImage] = useState(null)
-    const productData = {
-        title, description, price, location, image
-    }
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    const onSubmit = (data) => {
+        const productData = {
+            title: data.title,
+            description: data.description,
+            price: data.price,
+            location: data.location
+        }
+        if (data.image?.[0]) {
+            productData.image = data.image[0]
+        }
 
         dispatch(updateProduct({ id, productData, accessToken }))
     }
@@ -41,14 +46,27 @@ function EditProduct() {
         <main className="form-page">
             <div className="form-card">
                 <h2 className="form-title">Update Product</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     {loading && <p className="form-hint">Loading...</p>}
                     {error && <p className="form-error">{error}</p>}
-                    <input onChange={(e) => setTitle(e.target.value)} value={title} type="text" placeholder="Title" required />
-                    <input onChange={(e) => setDescription(e.target.value)} value={description} type="text" placeholder="Description" required />
-                    <input onChange={(e) => setPrice(e.target.value)} value={price} type="number" placeholder="Price" required />
-                    <input onChange={(e) => setLocation(e.target.value)} value={location} type="text" placeholder="Location" required />
-                    <input onChange={(e) => setImage(e.target.files[0] || null)} type="file" />
+                    <input  {...register('title', { required: { value: true, message: "Title is required" }, minLength: { value: 3, message: "Minimum Length is 3 characters" } })} type="text" placeholder="Title" />
+                    {errors.title && <p>{errors.title.message}</p>}
+                    <input {...register('description', {
+                        required: {
+                            value: true,
+                            message: "Description is required"
+                        },
+                        minLength: {
+                            value: 10,
+                            message: "Description must be at least 10 characters"
+                        }
+                    })} type="text" placeholder="Description" />
+                    {errors.description && <p>{errors.description.message}</p>}
+                    <input {...register('price', { required: "Price is required", min: { value: 1, message: "Price must be greater than zero" } })} type="number" placeholder="Price" />
+                    {errors.price && <p>{errors.price.message}</p>}
+                    <input {...register('location', { required: "Location is required" })} type="text" placeholder="Location" />
+                    {errors.location && <p>{errors.location.message}</p>}
+                    <input {...register('image')} type="file" />
                     <button disabled={loading}>Submit</button>
                 </form>
             </div>
