@@ -1,22 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createProduct } from '../features/products/productSlice'
 import "./CreateProduct.css";
+import { useForm } from "react-hook-form";
 
 function CreateProduct() {
+    const { register, handleSubmit, formState } = useForm()
+    const { errors } = formState
     const { accessToken } = useSelector((state) => state.auth)
     const { loading, error } = useSelector((state) => state.products)
     const dispatch = useDispatch()
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
-    const [price, setPrice] = useState("")
-    const [location, setLocation] = useState("")
-    const [image, setImage] = useState(null)
-    const productData = {
-        title, description, price, location, image
-    }
-    const handleSubmit = (e) => {
-        e.preventDefault()
+
+    const onSubmit = (data) => {
+        const productData = {
+            ...data,
+            image: data.image[0] || null
+        }
 
         dispatch(createProduct({ productData, accessToken }))
     }
@@ -24,14 +23,27 @@ function CreateProduct() {
         <main className="form-page">
             <div className="form-card">
                 <h2 className="form-title">Create Product</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     {loading && <p className="form-hint">Loading...</p>}
                     {error && <p className="form-error">{error}</p>}
-                    <input onChange={(e) => setTitle(e.target.value)} value={title} type="text" placeholder="Title" required />
-                    <input onChange={(e) => setDescription(e.target.value)} value={description} type="text" placeholder="Description" required />
-                    <input onChange={(e) => setPrice(e.target.value)} value={price} type="number" placeholder="Price" required />
-                    <input onChange={(e) => setLocation(e.target.value)} value={location} type="text" placeholder="Location" required />
-                    <input onChange={(e) => setImage(e.target.files[0])} type="file" />
+                    <input  {...register('title', { required: { value: true, message: "Title is required" } })} type="text" placeholder="Title"  />
+                    {errors.title && <p>{errors.title.message}</p>}
+                    <input {...register('description', {
+                        required: {
+                            value: true,
+                            message: "Description is required"
+                        },
+                        minLength: {
+                            value: 10,
+                            message: "Description must be at least 10 characters"
+                        }
+                    })} type="text" placeholder="Description" />
+                    {errors.description && <p>{errors.description.message}</p>}
+                    <input {...register('price', { required: "Price is required", min: { value: 1, message: "Price must be greater than zero" } })} type="number" placeholder="Price"  />
+                    {errors.price && <p>{errors.price.message}</p>}
+                    <input {...register('location', { required: "Location is required" })} type="text" placeholder="Location"  />
+                    {errors.location && <p>{errors.location.message}</p>}
+                    <input {...register('image')} type="file" />
                     <button disabled={loading}>Submit</button>
                 </form>
             </div>
