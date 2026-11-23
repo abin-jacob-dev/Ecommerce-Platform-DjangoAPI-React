@@ -68,6 +68,41 @@
   background: var(--danger);
 }
 
+.product-card .sold-badge {
+  display: inline-flex;
+  min-height: 1.5rem;
+  align-items: center;
+  align-self: flex-start;
+  margin: 0.25rem 0 0.5rem;
+  padding: 0 0.5rem;
+  color: var(--danger);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.product-card .sold-badge.is-sold {
+  background: #fdecea;
+  border-radius: 4px;
+}
+
+.product-card .sold-badge.is-available {
+  color: #1e8449;
+  background: #e8f5e9;
+  border-radius: 4px;
+}
+
+.product-card .card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.product-card .card-actions button {
+  flex: 1;
+  width: auto;
+  margin: 0;
+}
+
 .state-message {
   text-align: center;
   color: #666;
