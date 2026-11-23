@@ -1,0 +1,11 @@
+.error-boundary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  text-align: center;
+}
+
+.error-boundary h2 {
+  color: var(--danger);
+}

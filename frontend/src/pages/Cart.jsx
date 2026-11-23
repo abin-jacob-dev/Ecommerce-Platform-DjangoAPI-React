@@ -40,8 +40,8 @@ function Cart() {
             </div>
             <div className="cart-actions">
                 <button disabled={items.length === 0 || checkoutLoading} onClick={() => handleCheckout(product_ids)}> {checkoutLoading ? 'Processing...' : 'Checkout'}</button>
-                {checkoutSuccess && <p>Checkout Successful</p>}
-                {checkoutError && <p>{checkoutError}</p>}
+                {checkoutSuccess && <p className="form-success">Checkout Successful</p>}
+                {checkoutError && <p className="form-error">{checkoutError}</p>}
             </div>
         </main>
     )

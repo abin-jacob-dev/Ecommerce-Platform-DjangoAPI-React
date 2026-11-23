@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from '../features/products/productSlice';
 import { Link } from "react-router-dom";
 import "./Home.css";
+import { addToCart } from '../features/cart/cartSlice';
 
 const CLOUD_NAME = "campeon-ecommerce";
 
@@ -13,8 +14,12 @@ function Home() {
         dispatch(fetchProducts())
     }, [dispatch])
 
+    const handleAddToCart = (product) => {
+        dispatch(addToCart(product))
+    }
+
     // throw new Error("Test Error Boundary")
-    
+
     return (
         <main>
             <h1 className="page-title">Products</h1>
@@ -26,8 +31,8 @@ function Home() {
                         <p>{product.description}</p>
                         <p className="price">{product.price}</p>
                         <p>{product.location}</p>
-
-                        <Link to={`/products/${product.id}`}>Buy now</Link>
+                        <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
+                        <Link to={`/products/${product.id}`}>View Details</Link>
                     </div>
                 ))}
             </div>

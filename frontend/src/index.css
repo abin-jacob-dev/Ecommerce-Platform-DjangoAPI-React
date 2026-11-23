@@ -23,6 +23,7 @@ body {
 
 main {
   flex: 1;
+  padding: 1rem 1.5rem;
 }
 
 button {
@@ -45,4 +46,24 @@ input {
 img {
   max-width: 100%;
   display: block;
+}
+
+/* Conditional messages */
+.form-error,
+.state-message.error {
+  color: var(--danger);
+  text-align: center;
+  margin: 0;
+}
+
+.form-success {
+  color: #1e8449;
+  text-align: center;
+  margin: 0;
+}
+
+.state-message {
+  text-align: center;
+  color: #666;
+  margin: 0;
 }
