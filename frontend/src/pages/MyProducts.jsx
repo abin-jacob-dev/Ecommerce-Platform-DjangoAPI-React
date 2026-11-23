@@ -13,7 +13,14 @@ function MyProducts() {
     const { loading, error, myProducts } = useSelector((state) => state.products)
     const { accessToken, user } = useSelector((state) => state.auth)
     const handleDelete = (id) => {
-        dispatch(deleteProduct({ id, accessToken }))
+        const confirmDelete = window.confirm(
+            "Are you sure you want to delete this product?"
+        )
+
+        if (confirmDelete) {
+            dispatch(deleteProduct({ id, accessToken }))
+        }
+        
     }
     const handleEdit = (id) => {
         navigate(`/products/${id}/edit`)

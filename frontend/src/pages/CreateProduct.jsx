@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createProduct } from '../features/products/productSlice'
 import "./CreateProduct.css";
 import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
 
 function CreateProduct() {
     const { register, handleSubmit, formState } = useForm()
@@ -11,6 +12,7 @@ function CreateProduct() {
     const { loading, error } = useSelector((state) => state.products)
     const dispatch = useDispatch()
 
+    const navigate = useNavigate()
     const onSubmit = (data) => {
         const productData = {
             ...data,
@@ -18,6 +20,7 @@ function CreateProduct() {
         }
 
         dispatch(createProduct({ productData, accessToken }))
+        navigate('/my_products')
     }
     return (
         <main className="form-page">

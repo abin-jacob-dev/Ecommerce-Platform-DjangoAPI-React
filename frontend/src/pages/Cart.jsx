@@ -33,6 +33,7 @@ function Cart() {
                             <p>{item.id}. {item.title}</p>
                             <p>{item.description}</p>
                             <p className="item-price">{item.price}</p>
+                            <p >{item.location}</p>
                             <button className="btn-danger" onClick={() => handleRemoveFromCart(item.id)}>Remove</button>
                         </div>
                     </div>

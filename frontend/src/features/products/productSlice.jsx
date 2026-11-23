@@ -174,6 +174,7 @@ const productsSlice = createSlice({
             .addCase(deleteProduct.fulfilled, (state, action) => {
                 state.loading = false
                 state.products = state.products.filter(product => product.id !== action.payload)
+                state.myProducts = state.myProducts.filter(product => product.id !== action.payload)
 
             })
             .addCase(deleteProduct.rejected, (state, action) => {

@@ -15,7 +15,14 @@ function Home() {
     }, [dispatch])
 
     const handleAddToCart = (product) => {
-        dispatch(addToCart(product))
+        const confirmAdd = window.confirm(
+            "Are you sure you want to add this product to your cart?"
+        )
+
+        if (confirmAdd) {
+            dispatch(addToCart(product))
+        }
+
     }
 
     // throw new Error("Test Error Boundary")

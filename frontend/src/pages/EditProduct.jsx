@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { fetchProductById, updateProduct } from '../features/products/productSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import "./EditProduct.css";
@@ -12,6 +12,7 @@ function EditProduct() {
     const { product, loading, error } = useSelector((state) => state.products)
     const { accessToken } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     useEffect(() => {
         dispatch(fetchProductById(id))
     }, [dispatch, id])
@@ -41,6 +42,7 @@ function EditProduct() {
         }
 
         dispatch(updateProduct({ id, productData, accessToken }))
+        navigate('/my_products')
     }
     return (
         <main className="form-page">
