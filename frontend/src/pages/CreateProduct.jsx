@@ -13,14 +13,22 @@ function CreateProduct() {
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         const productData = {
             ...data,
             image: data.image[0] || null
         }
 
-        dispatch(createProduct({ productData, accessToken }))
-        navigate('/my_products')
+        try {
+            await dispatch(
+                createProduct({ productData, accessToken })
+            ).unwrap()
+
+            navigate('/my_products')
+
+        } catch (error) {
+            console.log("Product creation failed:", error)
+        }
     }
     return (
         <main className="form-page">

@@ -36,8 +36,8 @@ function Home() {
                         {product.image && <img src={`https://res.cloudinary.com/${CLOUD_NAME}/${product.image}`} alt={product.title} />}
                         <p>{product.id}. {product.title}</p>
                         <p>{product.description}</p>
-                        <p className="price">{product.price}</p>
-                        <p>{product.location}</p>
+                        <p className="price">Price : {product.price}</p>
+                        <p>Location : {product.location}</p>
                         <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
                         <Link to={`/products/${product.id}`}>View Details</Link>
                     </div>
