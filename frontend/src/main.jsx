@@ -4,6 +4,9 @@ import App from './App.jsx'
 import { Provider } from "react-redux";
 import store from './app/store.jsx';
 import './index.css';
+import { setupInterceptors } from './services/api'
+
+setupInterceptors(store)
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
