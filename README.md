@@ -326,7 +326,7 @@ curl -X POST http://localhost:8000/api/checkout/ \
 ## 🏗️ How It's Made (High Level)
 
 ```
-┌──────────────────────┐        HTTP/JSON        ┌──────────────────────┐
+┌──────────────────────┐        HTTP/JSON       ┌──────────────────────┐
 │  React 19 + Vite     │  ───────────────────►  │  Django REST (DRF)   │
 │  Redux Toolkit       │  ◄───────────────────  │  SimpleJWT auth      │
 │  Axios (interceptor) │     JWT Bearer token   │  SQLite / Cloudinary │
