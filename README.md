@@ -9,6 +9,7 @@
     <a href="#frontend-routes">Frontend Routes</a> •
     <a href="#environment-variables">Environment</a> •
     <a href="#deployment">Deployment</a> •
+    <a href="https://documenter.getpostman.com/view/53849222/2sBYPv3sgx#af36c990-47f3-4950-97a6-8ad4228eb1db">API Docs</a> •
     <a href="./docs/PROJECT_DETAILS.md">Deep Dive</a>
   </p>
 </div>
@@ -284,6 +285,22 @@ curl -X POST http://localhost:8000/api/checkout/ \
 ```
 
 ---
+
+## 📮 Postman Collection & API Documentation
+
+- **Live API Documentation (Postman):** https://documenter.getpostman.com/view/53849222/2sBYPv3sgx#af36c990-47f3-4950-97a6-8ad4228eb1db
+- A ready-to-import Postman collection is provided under [`postman/`](./postman/):
+
+- `postman/Ecommerce_Platform_API.postman_collection.json` — all endpoints (auth + products + checkout) with methods, headers, bodies, and test scripts that auto-save tokens.
+- `postman/Ecommerce_Platform.postman_environment.json` — environment variables (`base_url`, `access_token`, `refresh_token`, `product_id`).
+
+**Import steps**
+
+1. Open Postman → **Import** → select both JSON files (or drag-and-drop).
+2. Select the **E-Commerce Platform - Local** environment.
+3. Set `base_url` to your backend (default `http://localhost:8000`).
+4. Run **Login** first — the test script stores `access_token` and `refresh_token` automatically.
+5. All protected requests use `{{access_token}}` via Bearer auth.
 
 ## 🧭 Frontend Routes
 
