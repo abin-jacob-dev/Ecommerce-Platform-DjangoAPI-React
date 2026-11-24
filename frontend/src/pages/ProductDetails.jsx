@@ -5,7 +5,7 @@ import { fetchProductById } from '../features/products/productSlice'
 import { addToCart } from '../features/cart/cartSlice'
 import "./ProductDetails.css";
 
-const CLOUD_NAME = "campeon-ecommerce";
+const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME || "campeon-ecommerce";
 
 function ProductDetails() {
     const { product, loading, error } = useSelector((state) => state.products)

@@ -5,7 +5,7 @@ import { deleteProduct, fetchMyProducts } from '../features/products/productSlic
 import { useNavigate } from 'react-router-dom';
 import "./Home.css";
 
-const CLOUD_NAME = "campeon-ecommerce";
+const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME || "campeon-ecommerce";
 
 function MyProducts() {
     const navigate = useNavigate()

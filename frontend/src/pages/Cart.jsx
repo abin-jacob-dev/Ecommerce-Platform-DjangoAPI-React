@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { removeFromCart, createCheckout } from '../features/cart/cartSlice'
 import "./Cart.css";
 
-const CLOUD_NAME = "campeon-ecommerce";
+const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME || "campeon-ecommerce";
 
 function Cart() {
     const dispatch = useDispatch()

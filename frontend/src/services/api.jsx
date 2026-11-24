@@ -3,7 +3,7 @@ import axios from 'axios'
 // import { updateAccessToken, logout } from '../features/auth/authSlice'
 
 const api = axios.create({
-    baseURL: 'http://localhost:8000/api/',
+    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/',
     // headers: {
     //     "Content-type": 'application/json'
     // },
@@ -22,7 +22,7 @@ export const setupInterceptors = (store) => {
 
                 originalRequest._retry = true
                 try {
-                    const response = await axios.post('http://localhost:8000/api/token/refresh/', { refresh: refreshToken })
+                    const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/'}token/refresh/`, { refresh: refreshToken })
                     const newAccessToken = response.data.access
                     const newRefreshToken = response.data.refresh
                     // store.dispatch(updateAccessToken(newAccessToken))

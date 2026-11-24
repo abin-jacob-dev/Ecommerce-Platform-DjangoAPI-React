@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "./Home.css";
 import { addToCart } from '../features/cart/cartSlice';
 
-const CLOUD_NAME = "campeon-ecommerce";
+const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME || "campeon-ecommerce";
 
 function Home() {
     const dispatch = useDispatch()
